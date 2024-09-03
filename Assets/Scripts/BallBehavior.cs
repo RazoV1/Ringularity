@@ -10,6 +10,7 @@ public class BallBehavior : MonoBehaviour
     public Vector2 currentDirection;
 
     [SerializeField] private float curvatureAmount;
+    public Rigidbody2D rb;
     [SerializeField] private CarreteController carrete;
 
     private float curvaturePlane;
@@ -19,17 +20,23 @@ public class BallBehavior : MonoBehaviour
         if (collision.collider.tag == "carrete")
         {
             carrete.HandleBallCollision(collision.contacts[0].point);
+            UpdatePosition();
         }
+		//UpdatePosition();
 	}
 
 	private void Update()
 	{
-        UpdatePosition();
+        if (transform.position.y < 0)
+        {
+            GameObject.Find("GameManager").GetComponent<GameManager>().ResetBall();
+        }
 	}
 
 	private void UpdatePosition()
     {
-        transform.position += (Vector3)currentDirection * currentSpeed * Time.deltaTime;
-    }
+        //transform.position += (Vector3)currentDirection * currentSpeed * Time.deltaTime;
+        rb.velocity = (Vector3)currentDirection * currentSpeed;
+	}
 
 }
