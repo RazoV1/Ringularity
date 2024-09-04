@@ -15,6 +15,11 @@ public class BallBehavior : MonoBehaviour
 
     private float curvaturePlane;
 
+    public void SetCarrete(CarreteController carrete)
+    {
+        this.carrete = carrete;
+    }
+
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
         if (collision.collider.tag == "carrete")
@@ -27,7 +32,7 @@ public class BallBehavior : MonoBehaviour
 
 	private void Update()
 	{
-        if (transform.position.y < 0)
+        if (transform.position.y < -6)
         {
             GameObject.Find("GameManager").GetComponent<GameManager>().ResetBall();
         }
