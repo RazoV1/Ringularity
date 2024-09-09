@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreViewModel;
     [SerializeField] private TextMeshProUGUI levelIndexViewModel;
     [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject winScreen;
 
     public void NewGame()
     {
@@ -50,11 +51,19 @@ public class GameManager : MonoBehaviour
 
     public void StartLevel(int index)
     {
-        currentLevelInstance = Instantiate(Levels[index]);
-        lives += 3;
-        maxLives = lives;
-        CreateBall();
-        currentLevelIndex++;
+        try
+        {
+			currentLevelIndex++;
+			currentLevelInstance = Instantiate(Levels[index]);
+            lives = 3;
+            maxLives = lives;
+            CreateBall();
+            UpdateViewModels() ;
+		}
+        catch
+        {
+            winScreen.SetActive(true);
+        }
     }
     private void CreateBall()
     {
@@ -67,17 +76,15 @@ public class GameManager : MonoBehaviour
 	public void UpdateViewModels()
 	{
 		hpViewModel.fillAmount = lives / (float)maxLives;
-        levelIndexViewModel.text = "Level: " + currentLevelIndex.ToString();
+        levelIndexViewModel.text = "Level: " + (currentLevelIndex).ToString();
         scoreViewModel.text = "Score: " + score.ToString();
         CalculateBricks();
 	}
-    public void CheckHpUpdate()
+    public void Quit()
     {
-        if (score % 300 == 0)
-        {
-            lives++;
-        }
+        Application.Quit();
     }
+
 	public void ResetBall()
     {
         carrete.ResetBall();

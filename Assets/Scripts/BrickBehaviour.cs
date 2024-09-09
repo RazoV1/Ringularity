@@ -25,7 +25,6 @@ public class BrickBehaviour : MonoBehaviour
 		if (hp == 0)
 		{
 			gameManager.score += score;
-			gameManager.CheckHpUpdate();
 			gameManager.UpdateViewModels();
 			Destroy(gameObject);
 		}
