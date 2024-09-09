@@ -9,6 +9,9 @@ public class CarreteController : MonoBehaviour
     [SerializeField] private BallBehavior ball;
     [SerializeField] private float curveReduction;
 
+    [SerializeField] private float leftLimiter;
+    [SerializeField] private float rightLimiter;
+
     private float horizontal;
 
 
@@ -17,6 +20,7 @@ public class CarreteController : MonoBehaviour
         horizontal = Input.GetAxis("Horizontal");
         //circleTransform.Rotate(new Vector3(0,0,horizontal * carreteSpeed * Time.deltaTime)); - староый контроль;
         transform.position += new Vector3(horizontal * carreteSpeed * Time.deltaTime, 0);
+        transform.position = new Vector2(Mathf.Clamp(transform.position.x,leftLimiter,rightLimiter),transform.position.y);
     }
 
     void Update()

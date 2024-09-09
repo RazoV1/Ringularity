@@ -19,6 +19,10 @@ public class BallBehavior : MonoBehaviour
     {
         this.carrete = carrete;
     }
+    public CarreteController GetCarrete()
+    {
+        return this.carrete;
+    }
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
@@ -28,14 +32,6 @@ public class BallBehavior : MonoBehaviour
             UpdatePosition();
         }
 		//UpdatePosition();
-	}
-
-	private void Update()
-	{
-        if (transform.position.y < -6)
-        {
-            GameObject.Find("GameManager").GetComponent<GameManager>().ResetBall();
-        }
 	}
 
 	private void UpdatePosition()
